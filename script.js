@@ -5,13 +5,22 @@ const game = (function () {
     [".", ".", "."],
     [".", ".", "."],
   ];
-  const makeMove = (row, col, move) => {
-    gameboard[row][col] = move;
-    movesAvailable--;
-    return move;
+  const decreaseNumberOfMoves = () => movesAvailable--;
+  const getNumberOfMoves = () => movesAvailable;
+
+  const makeMove = (row, col, player) => {
+    message = false;
+    if (gameboard[row][col] === ".") {
+      gameboard[row][col] = player.move;
+      decreaseNumberOfMoves();
+    } else {
+      message = "This field is already taken";
+    }
+    return message ? message : player.move;
   };
-  return { gameboard, makeMove };
+  return { gameboard, makeMove, getNumberOfMoves };
 })();
+
 function createPlayer(name, move) {
   return { name, move };
 }
