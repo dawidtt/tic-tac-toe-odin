@@ -4,11 +4,11 @@ const game = (function () {
     [".", ".", "."],
     [".", ".", "."],
   ];
-  const makeMove = (row, col, move) => (gameBoard[row][col] = move);
+  const makeMove = (row, col, move) => (gameboard[row][col] = move);
   return { gameboard, makeMove };
 })();
-function createPlayer(name) {
-  return { name };
+function createPlayer(name, move) {
+  return { name, move };
 }
-const josh = createPlayer("josh");
-const mike = createPlayer("mike");
+const josh = createPlayer("josh", "O");
+const mike = createPlayer("mike", "X");
