@@ -18,7 +18,10 @@ const game = (function () {
     }
     return message ? message : player.move;
   };
-  return { gameboard, makeMove, getNumberOfMoves };
+  const displayGameboard = () => {
+    console.log(gameboard);
+  };
+  return { gameboard, makeMove, getNumberOfMoves, displayGameboard };
 })();
 
 function createPlayer(name, move) {
