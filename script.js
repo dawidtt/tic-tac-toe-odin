@@ -15,8 +15,8 @@ const gameControl = (function () {
 
   const makeMove = (row, col, player) => {
     const message = false;
-    if (gameboard[row][col] === ".") {
-      gameboard[row][col] = player.move;
+    if (gameboard.gameboard[row][col] === ".") {
+      gameboard.gameboard[row][col] = player.move;
       decreaseNumberOfMoves();
     } else {
       message = "This field is already taken";
@@ -24,7 +24,7 @@ const gameControl = (function () {
     return message ? message : player.move;
   };
   const displayGameboard = () => {
-    console.log(gameboard);
+    console.log(gameboard.gameboard);
   };
   return { makeMove, getNumberOfMoves, displayGameboard };
 })();
