@@ -1,15 +1,20 @@
-const game = (function () {
-  let movesAvailable = 9;
+const gameboard = (function () {
   let gameboard = [
     [".", ".", "."],
     [".", ".", "."],
     [".", ".", "."],
   ];
+  return { gameboard };
+})();
+
+const gameControl = (function () {
+  let movesAvailable = 9;
+
   const decreaseNumberOfMoves = () => movesAvailable--;
   const getNumberOfMoves = () => movesAvailable;
 
   const makeMove = (row, col, player) => {
-    message = false;
+    const message = false;
     if (gameboard[row][col] === ".") {
       gameboard[row][col] = player.move;
       decreaseNumberOfMoves();
@@ -21,9 +26,8 @@ const game = (function () {
   const displayGameboard = () => {
     console.log(gameboard);
   };
-  return { gameboard, makeMove, getNumberOfMoves, displayGameboard };
+  return { makeMove, getNumberOfMoves, displayGameboard };
 })();
-
 function createPlayer(name, move) {
   return { name, move };
 }
