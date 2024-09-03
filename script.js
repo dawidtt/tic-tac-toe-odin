@@ -28,24 +28,55 @@ const gameControl = (function () {
       : `${player.name} placed ${player.move} on ${row} row in ${col} column`;
   };
   const lookForWinner = () => {
+    const allEqual = (arr) => arr.every((val) => val === arr[0]);
+
+    function chooseWinner(winPlayerMove) {
+      for (const player of players) {
+        if (player.move === winPlayerMove) {
+          winner = player.name;
+          winnerMessage = `${winner} won the game`;
+        }
+      }
+    }
     let winPlayerMove;
     let winner = false;
     let winnerMessage = "";
     const tempGameboardArray = gameboard.gameboard;
+    // check if there is a winner in rows
     for (const gameboardRow of tempGameboardArray) {
-      if (
-        gameboardRow[0] === gameboardRow[1] &&
-        gameboardRow[1] === gameboardRow[2] &&
-        gameboardRow[2] !== "."
-      ) {
+      if (allEqual(gameboardRow) && gameboardRow[2] !== ".") {
         winPlayerMove = gameboardRow[0];
-        for (const player of players) {
-          if (player.move === winPlayerMove) {
-            winner = player.name;
-            winnerMessage = `${winner} won the game`;
-          }
-        }
+        chooseWinner(winPlayerMove);
         break;
+      }
+    }
+    // check if there is a winner in columns
+    for (let i = 0; i < 3; i++) {
+      let tempTraversalArray = [];
+      for (const gameboardRow of tempGameboardArray) {
+        tempTraversalArray.push(gameboardRow[i]);
+      }
+      if (allEqual(tempTraversalArray) && tempTraversalArray[2] !== ".") {
+        chooseWinner(tempTraversalArray[1]);
+        break;
+      } else tempTraversalArray = [];
+    }
+    // check if there is a winner diagonally
+    let tempDiagonalArray = [];
+    let reverseDiagonalPointer = 2;
+    for (let i = 0; i < 3; i++) {
+      tempDiagonalArray.push(tempGameboardArray[i][i]);
+    }
+    if (allEqual(tempDiagonalArray) && tempDiagonalArray[2] !== ".") {
+      chooseWinner(tempDiagonalArray[1]);
+    } else {
+      tempDiagonalArray = [];
+      for (let i = 0; i < 3; i++) {
+        tempDiagonalArray.push(tempGameboardArray[i][reverseDiagonalPointer]);
+        reverseDiagonalPointer--;
+      }
+      if (allEqual(tempDiagonalArray) && tempDiagonalArray[2] !== ".") {
+        chooseWinner(tempDiagonalArray[1]);
       }
     }
     return winner ? winnerMessage : winner;
