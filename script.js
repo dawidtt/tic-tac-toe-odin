@@ -8,24 +8,34 @@ const gameboard = (function () {
 })();
 
 const gameControl = (function () {
+  const josh = createPlayer("josh", "O");
+  const mike = createPlayer("mike", "X");
+  const players = [josh, mike];
+  let activePlayer = players[0];
+  let roundMessage = "";
+
   let movesAvailable = 9;
+
+  const switchActivePlayer = () => {
+    activePlayer = activePlayer === players[0] ? players[1] : players[0];
+  };
 
   const decreaseNumberOfMoves = () => movesAvailable--;
   const getNumberOfMoves = () => movesAvailable;
 
-  const makeMove = (row, col, player) => {
+  const makeMove = (row, col) => {
     let message = false;
     if (gameboard.gameboard[row][col] === ".") {
-      gameboard.gameboard[row][col] = player.move;
+      gameboard.gameboard[row][col] = activePlayer.move;
+      roundMessage = `${activePlayer.name} placed ${activePlayer.move} on ${row} row in ${col} column`;
       decreaseNumberOfMoves();
+      switchActivePlayer();
+      message = lookForWinner();
     } else {
       message = "This field is already taken";
     }
     displayGameboard();
-    message = lookForWinner();
-    return message
-      ? message
-      : `${player.name} placed ${player.move} on ${row} row in ${col} column`;
+    return message ? message : roundMessage;
   };
   const lookForWinner = () => {
     const allEqual = (arr) => arr.every((val) => val === arr[0]);
@@ -90,7 +100,3 @@ const gameControl = (function () {
 function createPlayer(name, move) {
   return { name, move };
 }
-
-const josh = createPlayer("josh", "O");
-const mike = createPlayer("mike", "X");
-const players = [josh, mike];
