@@ -4,10 +4,12 @@ const gameboard = (function () {
     [".", ".", "."],
     [".", ".", "."],
   ];
-  return { gameboard };
+  const getGameboard = () => gameboard;
+  return { getGameboard, gameboard };
 })();
 
 const gameControl = (function () {
+  let currentGameboard = gameboard.gameboard;
   const josh = createPlayer("josh", "O");
   const mike = createPlayer("mike", "X");
   const players = [josh, mike];
@@ -25,8 +27,8 @@ const gameControl = (function () {
 
   const makeMove = (row, col) => {
     let message = false;
-    if (gameboard.gameboard[row][col] === ".") {
-      gameboard.gameboard[row][col] = activePlayer.move;
+    if (currentGameboard[row][col] === ".") {
+      currentGameboard[row][col] = activePlayer.move;
       roundMessage = `${activePlayer.name} placed ${activePlayer.move} on ${row} row in ${col} column`;
       decreaseNumberOfMoves();
       switchActivePlayer();
@@ -51,7 +53,8 @@ const gameControl = (function () {
     let winPlayerMove;
     let winner = false;
     let winnerMessage = "";
-    const tempGameboardArray = gameboard.gameboard;
+    const tempGameboardArray = currentGameboard;
+
     // check if there is a winner in rows
     for (const gameboardRow of tempGameboardArray) {
       if (allEqual(gameboardRow) && gameboardRow[2] !== ".") {
@@ -89,12 +92,22 @@ const gameControl = (function () {
         chooseWinner(tempDiagonalArray[1]);
       }
     }
+
+    if (movesAvailable === 0) {
+      winner = "tie";
+      winnerMessage = "There is a TIE!";
+    }
     return winner ? winnerMessage : winner;
   };
   const displayGameboard = () => {
-    console.log(gameboard.gameboard);
+    console.log(currentGameboard);
   };
-  return { makeMove, getNumberOfMoves, displayGameboard, lookForWinner };
+  return {
+    makeMove,
+    getNumberOfMoves,
+    displayGameboard,
+    lookForWinner,
+  };
 })();
 
 function createPlayer(name, move) {
