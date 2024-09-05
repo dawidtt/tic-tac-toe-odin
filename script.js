@@ -38,7 +38,9 @@ const gameControl = (function () {
     }
     displayGameboard();
     renderToWebpage(currentGameboard);
-    console.log(message ? message : roundMessage);
+    //console.log(message ? message : roundMessage);
+    setTimeout(() => (message ? alert(message) : message), 100);
+
     return message ? message : roundMessage;
   };
   const lookForWinner = () => {
