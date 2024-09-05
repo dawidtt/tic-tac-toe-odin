@@ -1,3 +1,6 @@
+html {
+  font-size: 18px;
+}
 body,
 .container {
   height: 100vh;
@@ -26,4 +29,10 @@ body,
   width: 200px;
   height: 200px;
   background-color: rgb(31, 31, 131);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gameboard-field p {
+  font-size: 5rem;
 }

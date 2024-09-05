@@ -37,6 +37,8 @@ const gameControl = (function () {
       message = "This field is already taken";
     }
     displayGameboard();
+    renderToWebpage(currentGameboard);
+    console.log(message ? message : roundMessage);
     return message ? message : roundMessage;
   };
   const lookForWinner = () => {
@@ -102,14 +104,56 @@ const gameControl = (function () {
   const displayGameboard = () => {
     console.log(currentGameboard);
   };
+
+  const renderToWebpage = (gameboard) => {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (
+          gameboard[i][j] !== "." &&
+          allGameboardFieldsArrayFinal[i][j].childElementCount === 0
+        ) {
+          const textToWrite = gameboard[i][j];
+          const pTag = document.createElement("p");
+          pTag.textContent = textToWrite;
+          allGameboardFieldsArrayFinal[i][j].appendChild(pTag);
+        }
+      }
+    }
+  };
+
   return {
     makeMove,
     getNumberOfMoves,
     displayGameboard,
     lookForWinner,
+    renderToWebpage,
   };
 })();
 
 function createPlayer(name, move) {
   return { name, move };
+}
+
+const allGameboardFieldsFromDom = document.querySelectorAll(".gameboard-field");
+
+const allGameboardFieldsArray = [...allGameboardFieldsFromDom];
+
+const allGameboardFieldsArray1 = allGameboardFieldsArray.slice(0, 3);
+const allGameboardFieldsArray2 = allGameboardFieldsArray.slice(3, 6);
+
+const allGameboardFieldsArray3 = allGameboardFieldsArray.slice(6, 9);
+
+allGameboardFieldsArrayFinal = [];
+allGameboardFieldsArrayFinal.push(
+  allGameboardFieldsArray1,
+  allGameboardFieldsArray2,
+  allGameboardFieldsArray3
+);
+console.log(allGameboardFieldsArrayFinal);
+for (let i = 0; i < 3; i++) {
+  for (let j = 0; j < 3; j++) {
+    allGameboardFieldsArrayFinal[i][j].addEventListener("click", () =>
+      gameControl.makeMove(i, j)
+    );
+  }
 }
