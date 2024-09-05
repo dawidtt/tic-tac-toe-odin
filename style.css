@@ -1,0 +1,29 @@
+body,
+.container {
+  height: 100vh;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#gameboard {
+  border: 1px solid black;
+  width: 610px;
+  height: 610px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: rgb(187, 139, 233);
+}
+.gameboard-row {
+  display: flex;
+  gap: 5px;
+}
+.gameboard-field {
+  width: 200px;
+  height: 200px;
+  background-color: rgb(31, 31, 131);
+}
