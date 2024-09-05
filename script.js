@@ -10,13 +10,26 @@ const gameboard = (function () {
 
 const gameControl = (function () {
   let currentGameboard = gameboard.gameboard;
-  const josh = createPlayer("josh", "O");
-  const mike = createPlayer("mike", "X");
-  const players = [josh, mike];
-  let activePlayer = players[0];
+  // const josh = createPlayer("josh", "O");
+  // const mike = createPlayer("mike", "X");
+  const players = [];
+  let activePlayer;
   let roundMessage = "";
 
   let movesAvailable = 9;
+
+  const startGame = () => {
+    const player1 = document.querySelector("#first-player-name").value;
+    const player2 = document.querySelector("#second-player-name").value;
+    players.push(createPlayer(player1, "X"), createPlayer(player2, "O"));
+    activePlayer = players[0];
+    const headingPath = document.querySelector("h1");
+    const formPath = document.querySelector("form");
+    const gameboardPath = document.querySelector("#gameboard");
+    headingPath.style.display = "none";
+    formPath.style.display = "none";
+    gameboardPath.style.display = "flex";
+  };
 
   const switchActivePlayer = () => {
     activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -129,6 +142,7 @@ const gameControl = (function () {
     displayGameboard,
     lookForWinner,
     renderToWebpage,
+    startGame,
   };
 })();
 
@@ -159,3 +173,15 @@ for (let i = 0; i < 3; i++) {
     );
   }
 }
+
+const formHandler = (function () {
+  const startButton = document.querySelector(".start-game");
+
+  startButton.addEventListener("click", function (event) {
+    event.preventDefault();
+  });
+
+  startButton.addEventListener("click", () => {
+    gameControl.startGame();
+  });
+})();

@@ -4,11 +4,18 @@ html {
 body,
 .container {
   height: 100vh;
+  background-color: rgb(31, 31, 131);
 }
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+h1 {
+  font-size: 5rem;
+  position: relative;
+  transform: translateY(-150px);
 }
 #gameboard {
   border: 1px solid black;
@@ -20,6 +27,7 @@ body,
   align-items: center;
   gap: 5px;
   background-color: rgb(187, 139, 233);
+  display: none;
 }
 .gameboard-row {
   display: flex;
@@ -35,4 +43,26 @@ body,
 }
 .gameboard-field p {
   font-size: 5rem;
+}
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+}
+.player-name-wrapper {
+  display: flex;
+  gap: 25px;
+}
+.player-name-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+}
+button.start-game {
+  width: 150px;
+  height: 50px;
 }

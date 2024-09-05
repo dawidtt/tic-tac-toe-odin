@@ -9,6 +9,7 @@
   </head>
   <body>
     <div class="container">
+      <h1>Tic Tac Toe</h1>
       <div id="gameboard">
         <div class="gameboard-row">
           <div class="gameboard-field gameboard-field-1"></div>
@@ -26,6 +27,20 @@
           <div class="gameboard-field gameboard-field-9"></div>
         </div>
       </div>
+      <form>
+        <div class="player-name-wrapper">
+          <div class="player-name-container">
+            <label for="first-player-name">Player 1 Name</label>
+            <input id="first-player-name" type="text" />
+          </div>
+          <div class="player-name-container">
+            <label for="second-player-name">Player 2 Name</label>
+            <input id="second-player-name" type="text" />
+          </div>
+        </div>
+
+        <button class="start-game">Start Game</button>
+      </form>
     </div>
     <script src="script.js"></script>
   </body>
