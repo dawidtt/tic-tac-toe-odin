@@ -17,7 +17,16 @@ const gameControl = (function () {
   let roundMessage = "";
 
   let movesAvailable = 9;
-
+  const restart = () => {
+    currentGameboard = [
+      [".", ".", "."],
+      [".", ".", "."],
+      [".", ".", "."],
+    ];
+    roundMessage = "";
+    movesAvailable = 9;
+    startGame();
+  };
   const startGame = () => {
     let player1 = document.querySelector("#first-player-name").value;
     let player2 = document.querySelector("#second-player-name").value;
@@ -124,15 +133,23 @@ const gameControl = (function () {
   };
 
   const renderToWebpage = (gameboard, message) => {
+    console.log(gameboard);
+    console.log(allGameboardFieldsArrayFinal);
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (
-          gameboard[i][j] !== "." &&
-          allGameboardFieldsArrayFinal[i][j].childElementCount === 0
-        ) {
+        if (gameboard[i][j] !== ".") {
           const textToWrite = gameboard[i][j];
           const pTag = document.createElement("p");
           pTag.textContent = textToWrite;
+          if (allGameboardFieldsArrayFinal[i][j].childElementCount > 0)
+            allGameboardFieldsArrayFinal[i][j].firstChild.remove();
+          allGameboardFieldsArrayFinal[i][j].appendChild(pTag);
+        } else if (gameboard[i][j] === ".") {
+          const pTag = document.createElement("p");
+          pTag.textContent = "";
+
+          if (allGameboardFieldsArrayFinal[i][j].childElementCount > 0)
+            allGameboardFieldsArrayFinal[i][j].firstChild.remove();
           allGameboardFieldsArrayFinal[i][j].appendChild(pTag);
         }
       }
@@ -141,6 +158,10 @@ const gameControl = (function () {
     playerMessageDom.style.display = "block";
     if (message) playerMessageDom.textContent = message;
     else playerMessageDom.textContent = `${activePlayer.name}'s turn`;
+
+    const restartBtn = document.querySelector("#restart-btn");
+    restartBtn.style.display = "block";
+    restartBtn.addEventListener("click", restart);
   };
 
   return {
