@@ -162,6 +162,12 @@ const gameControl = (function () {
     const restartBtn = document.querySelector("#restart-btn");
     restartBtn.style.display = "block";
     restartBtn.addEventListener("click", restart);
+
+    const changeNames = document.querySelector("#change-players-names");
+    changeNames.style.display = "block";
+    changeNames.addEventListener("click", () => {
+      location.reload();
+    });
   };
 
   return {

@@ -75,3 +75,6 @@ button.start-game {
 #restart-btn {
   display: none;
 }
+#change-players-names {
+  display: none;
+}
