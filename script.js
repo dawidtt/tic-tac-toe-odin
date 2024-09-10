@@ -9,6 +9,22 @@ const gameboard = (function () {
 })();
 
 const gameControl = (function () {
+  const allGameboardFieldsFromDom =
+    document.querySelectorAll(".gameboard-field");
+
+  const allGameboardFieldsArray = [...allGameboardFieldsFromDom];
+
+  const allGameboardFieldsArray1 = allGameboardFieldsArray.slice(0, 3);
+  const allGameboardFieldsArray2 = allGameboardFieldsArray.slice(3, 6);
+
+  const allGameboardFieldsArray3 = allGameboardFieldsArray.slice(6, 9);
+
+  allGameboardFieldsArrayFinal = [];
+  allGameboardFieldsArrayFinal.push(
+    allGameboardFieldsArray1,
+    allGameboardFieldsArray2,
+    allGameboardFieldsArray3
+  );
   let currentGameboard = gameboard.gameboard;
   // const josh = createPlayer("josh", "O");
   // const mike = createPlayer("mike", "X");
@@ -28,6 +44,13 @@ const gameControl = (function () {
     startGame();
   };
   const startGame = () => {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        allGameboardFieldsArrayFinal[i][j].addEventListener("click", () =>
+          gameControl.makeMove(i, j)
+        );
+      }
+    }
     let player1 = document.querySelector("#first-player-name").value;
     let player2 = document.querySelector("#second-player-name").value;
     if (player1 === "") player1 = "Player1";
@@ -62,7 +85,6 @@ const gameControl = (function () {
     } else {
       message = "This field is already taken";
     }
-    displayGameboard();
     renderToWebpage(currentGameboard, message);
     //console.log(message ? message : roundMessage);
 
@@ -128,13 +150,8 @@ const gameControl = (function () {
     }
     return winner ? winnerMessage : winner;
   };
-  const displayGameboard = () => {
-    console.log(currentGameboard);
-  };
 
   const renderToWebpage = (gameboard, message) => {
-    console.log(gameboard);
-    console.log(allGameboardFieldsArrayFinal);
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (gameboard[i][j] !== ".") {
@@ -156,8 +173,20 @@ const gameControl = (function () {
     }
     const playerMessageDom = document.querySelector("#player-text");
     playerMessageDom.style.display = "block";
-    if (message) playerMessageDom.textContent = message;
-    else playerMessageDom.textContent = `${activePlayer.name}'s turn`;
+    if (message) {
+      playerMessageDom.textContent = message;
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          //Remove event listener
+          let newCell = allGameboardFieldsArrayFinal[i][j].cloneNode(true);
+          allGameboardFieldsArrayFinal[i][j].parentNode.replaceChild(
+            newCell,
+            allGameboardFieldsArrayFinal[i][j]
+          );
+          allGameboardFieldsArrayFinal[i][j] = newCell;
+        }
+      }
+    } else playerMessageDom.textContent = `${activePlayer.name}'s turn`;
 
     const restartBtn = document.querySelector("#restart-btn");
     restartBtn.style.display = "block";
@@ -173,7 +202,6 @@ const gameControl = (function () {
   return {
     makeMove,
     getNumberOfMoves,
-    displayGameboard,
     lookForWinner,
     renderToWebpage,
     startGame,
@@ -182,30 +210,6 @@ const gameControl = (function () {
 
 function createPlayer(name, move) {
   return { name, move };
-}
-
-const allGameboardFieldsFromDom = document.querySelectorAll(".gameboard-field");
-
-const allGameboardFieldsArray = [...allGameboardFieldsFromDom];
-
-const allGameboardFieldsArray1 = allGameboardFieldsArray.slice(0, 3);
-const allGameboardFieldsArray2 = allGameboardFieldsArray.slice(3, 6);
-
-const allGameboardFieldsArray3 = allGameboardFieldsArray.slice(6, 9);
-
-allGameboardFieldsArrayFinal = [];
-allGameboardFieldsArrayFinal.push(
-  allGameboardFieldsArray1,
-  allGameboardFieldsArray2,
-  allGameboardFieldsArray3
-);
-console.log(allGameboardFieldsArrayFinal);
-for (let i = 0; i < 3; i++) {
-  for (let j = 0; j < 3; j++) {
-    allGameboardFieldsArrayFinal[i][j].addEventListener("click", () =>
-      gameControl.makeMove(i, j)
-    );
-  }
 }
 
 const formHandler = (function () {
