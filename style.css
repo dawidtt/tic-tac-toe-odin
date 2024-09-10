@@ -19,15 +19,17 @@ h1 {
 }
 #gameboard {
   border: 1px solid black;
-  width: 610px;
-  height: 610px;
+  width: 615px;
+  height: 615px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 5px;
+
   background-color: rgb(187, 139, 233);
   display: none;
+  border: 1px solid rgb(187, 139, 233);
 }
 .gameboard-row {
   display: flex;
@@ -65,4 +67,11 @@ form {
 button.start-game {
   width: 150px;
   height: 50px;
+}
+
+#player-text {
+  display: none;
+}
+#restart-btn {
+  display: none;
 }

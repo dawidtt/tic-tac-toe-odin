@@ -19,8 +19,11 @@ const gameControl = (function () {
   let movesAvailable = 9;
 
   const startGame = () => {
-    const player1 = document.querySelector("#first-player-name").value;
-    const player2 = document.querySelector("#second-player-name").value;
+    let player1 = document.querySelector("#first-player-name").value;
+    let player2 = document.querySelector("#second-player-name").value;
+    if (player1 === "") player1 = "Player1";
+    if (player2 === "") player2 = "Player2";
+
     players.push(createPlayer(player1, "X"), createPlayer(player2, "O"));
     activePlayer = players[0];
     const headingPath = document.querySelector("h1");
@@ -29,6 +32,7 @@ const gameControl = (function () {
     headingPath.style.display = "none";
     formPath.style.display = "none";
     gameboardPath.style.display = "flex";
+    renderToWebpage(currentGameboard);
   };
 
   const switchActivePlayer = () => {
@@ -50,9 +54,8 @@ const gameControl = (function () {
       message = "This field is already taken";
     }
     displayGameboard();
-    renderToWebpage(currentGameboard);
+    renderToWebpage(currentGameboard, message);
     //console.log(message ? message : roundMessage);
-    setTimeout(() => (message ? alert(message) : message), 100);
 
     return message ? message : roundMessage;
   };
@@ -120,7 +123,7 @@ const gameControl = (function () {
     console.log(currentGameboard);
   };
 
-  const renderToWebpage = (gameboard) => {
+  const renderToWebpage = (gameboard, message) => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (
@@ -134,6 +137,10 @@ const gameControl = (function () {
         }
       }
     }
+    const playerMessageDom = document.querySelector("#player-text");
+    playerMessageDom.style.display = "block";
+    if (message) playerMessageDom.textContent = message;
+    else playerMessageDom.textContent = `${activePlayer.name}'s turn`;
   };
 
   return {
