@@ -173,7 +173,7 @@ const gameControl = (function () {
     }
     const playerMessageDom = document.querySelector("#player-text");
     playerMessageDom.style.display = "block";
-    if (message) {
+    if (message && message !== "This field is already taken") {
       playerMessageDom.textContent = message;
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
