@@ -28,19 +28,25 @@ const gameControl = (function () {
   let currentGameboard = gameboard.gameboard;
   // const josh = createPlayer("josh", "O");
   // const mike = createPlayer("mike", "X");
-  const players = [];
+  let players = [];
   let activePlayer;
   let roundMessage = "";
 
   let movesAvailable = 9;
+  const playerMessageDom = document.querySelector("#player-text");
+
   const restart = () => {
     currentGameboard = [
       [".", ".", "."],
       [".", ".", "."],
       [".", ".", "."],
     ];
+    players = [];
+    activePlayer = "";
     roundMessage = "";
     movesAvailable = 9;
+    playerMessageDom.style.color = "#ffffff";
+
     startGame();
   };
   const startGame = () => {
@@ -97,7 +103,7 @@ const gameControl = (function () {
       for (const player of players) {
         if (player.move === winPlayerMove) {
           winner = player.name;
-          winnerMessage = `${winner} won the game`;
+          winnerMessage = `${winner} won the game!`;
         }
       }
     }
@@ -171,10 +177,13 @@ const gameControl = (function () {
         }
       }
     }
-    const playerMessageDom = document.querySelector("#player-text");
     playerMessageDom.style.display = "block";
     if (message && message !== "This field is already taken") {
       playerMessageDom.textContent = message;
+
+      if (message !== "There is a TIE!")
+        playerMessageDom.style.color = "#FFD700";
+
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           //Remove event listener
@@ -201,9 +210,6 @@ const gameControl = (function () {
 
   return {
     makeMove,
-    getNumberOfMoves,
-    lookForWinner,
-    renderToWebpage,
     startGame,
   };
 })();
