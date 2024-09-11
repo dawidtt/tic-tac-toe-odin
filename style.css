@@ -4,7 +4,7 @@ html {
 body,
 .container {
   height: 100vh;
-  background-color: rgb(31, 31, 131);
+  background-color: #45a9c5;
 }
 .container {
   display: flex;
@@ -13,9 +13,10 @@ body,
   flex-direction: column;
 }
 h1 {
-  font-size: 5rem;
+  font-size: 7rem;
   position: relative;
   transform: translateY(-150px);
+  color: #ffffff;
 }
 #gameboard {
   border: 1px solid black;
@@ -55,7 +56,7 @@ form {
 }
 .player-name-wrapper {
   display: flex;
-  gap: 25px;
+  gap: 50px;
 }
 .player-name-container {
   display: flex;
@@ -64,11 +65,43 @@ form {
   flex-direction: column;
   gap: 5px;
 }
-button.start-game {
-  width: 150px;
-  height: 50px;
+.player-name-container input {
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 4px 23px -14px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 4px 23px -14px rgba(66, 68, 90, 1);
+  box-shadow: 0px 4px 23px -14px rgba(66, 68, 90, 1);
+  color: #085381;
 }
-
+.player-name-container input:focus {
+  outline: 2px solid #1081c7;
+}
+label {
+  color: #ffffff;
+}
+button.start-game {
+  width: 240px;
+  height: 80px;
+  background-color: #1081c7;
+  border-radius: 50px;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transform: translateY(100px);
+  opacity: 0.9;
+  transition: opacity 0.2s;
+  -webkit-box-shadow: 0px 8px 23px -9px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 8px 23px -9px rgba(66, 68, 90, 1);
+  box-shadow: 0px 8px 23px -9px rgba(66, 68, 90, 1);
+}
+button.start-game:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+button {
+  color: #ffffff;
+}
 #player-text {
   display: none;
 }
