@@ -15,12 +15,12 @@ body,
 h1 {
   font-size: 7rem;
   position: relative;
-  transform: translateY(-150px);
+  transform: translateY(-100px);
   color: #ffffff;
 }
 #gameboard {
-  width: 620px;
-  height: 620px;
+  width: 500px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,15 +38,15 @@ h1 {
   gap: 5px;
 }
 .gameboard-field {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   background-color: #45a9c5;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .gameboard-field p {
-  font-size: 7rem;
+  font-size: 6rem;
   color: #ffffff;
   font-weight: 700;
 }
